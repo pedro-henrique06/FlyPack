@@ -22,7 +22,7 @@ jobs:
         dotnet-version: '8.x'
 
     - name: Restore dependencies
-      run: dotnet restore FlyPack.sln
+      run: dotnet restore ../../FlyPack.sln
 
     - name: Build the project
       run: dotnet build ../../FlyPack.sln --configuration Release
@@ -31,7 +31,7 @@ jobs:
       run: dotnet test --configuration Release
 
     - name: Publish the API
-      run: dotnet publish FlyPack.Presentation/FlyPack.Presentation.csproj --configuration Release --output ./publish
+      run: dotnet publish ../../FlyPack.Presentation/FlyPack.Presentation.csproj --configuration Release --output ./publish
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
