@@ -3,6 +3,7 @@
     public abstract class BaseViewModel
     {
         public Guid Id { get; set; }
-        public bool Ativo { get; set; } = true;
+        public bool Active { get; set; } = true;
     }
+
 }

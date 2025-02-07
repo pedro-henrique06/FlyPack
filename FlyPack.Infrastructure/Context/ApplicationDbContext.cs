@@ -1,4 +1,5 @@
 ﻿using FlyPack.Domain.Entities;
+using FlyPack.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlyPack.Infrastructure.Context
@@ -7,24 +8,20 @@ namespace FlyPack.Infrastructure.Context
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-        public DbSet<Fornecedor> Fornecedores { get; set; }
-        public DbSet<Cliente> Clientes { get; set; }
-        public DbSet<Funcionario> Funcionarios { get; set; }
-        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Fornecedor>()
-                .HasKey(f => f.Id);
-
-            modelBuilder.Entity<Produto>()
-                .HasOne(p => p.Fornecedor)
-                .WithMany(f => f.Produtos)
-                .HasForeignKey(p => p.FornecedorId)
-                .HasPrincipalKey(f => f.Id); // Garante compatibilidade
+            // Configurações Fluent API
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
+            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new SupplierConfiguration());
         }
-
     }
 }

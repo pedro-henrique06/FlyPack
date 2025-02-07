@@ -11,11 +11,12 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly("FlyPack.Infrastructure"));
         });
+
         // Add services to the container.
 
         builder.Services.AddControllers();
@@ -26,18 +27,18 @@ internal class Program
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         // Registro de Repositórios
-        builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
-        builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
-        builder.Services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
-        builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+        builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
+        builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+        builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
         // Registro de Serviços
         builder.Services.AddScoped<ApplicationDbContext>();
         builder.Services.AddScoped<INotificator, Notificator>();
-        builder.Services.AddScoped<IFornecedorService, FornecedorService>();
-        builder.Services.AddScoped<IClienteService, ClienteService>();
-        builder.Services.AddScoped<IFuncionarioService, FuncionarioService>();
-        builder.Services.AddScoped<IProdutoService, ProdutoService>();
+        builder.Services.AddScoped<ISupplierService, SupplierService>();
+        builder.Services.AddScoped<ICustomerService, CustomerService>();
+        builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+        builder.Services.AddScoped<IProductService, ProductService>();
 
         var app = builder.Build();
 

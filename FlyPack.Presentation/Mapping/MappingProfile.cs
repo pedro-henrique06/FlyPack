@@ -8,23 +8,24 @@ namespace FlyPack.Presentation.Mapping
     {
         public MappingProfile()
         {
-            // Mapear Fornecedor <-> FornecedorViewModel
-            CreateMap<Fornecedor, FornecedorViewModel>().ReverseMap()
-                .ConstructUsing(src => new Fornecedor(src.Nome, src.TipoPessoa, src.CpfCnpj, src.Email, src.Telefone, src.Endereco, src.Categoria));
+            // Map Supplier <-> SupplierViewModel
+            CreateMap<Supplier, SupplierViewModel>().ReverseMap()
+                .ConstructUsing(src => new Supplier(src.Name, src.PersonType, src.CpfCnpj, src.Email, src.Phone, src.Address, src.Category));
 
-            // Mapear Cliente <-> ClienteViewModel
-            CreateMap<Cliente, ClienteViewModel>().ReverseMap()
-                .ConstructUsing(src => new Cliente(src.Nome, src.TipoPessoa, src.CpfCnpj, src.Email, src.Telefone, src.Endereco, src.Observacoes));
+            // Map Customer <-> CustomerViewModel
+            CreateMap<Customer, CustomerViewModel>().ReverseMap()
+                .ConstructUsing(src => new Customer(src.Name, src.PersonType, src.CpfCnpj, src.Email, src.Phone, src.Address, src.Notes));
 
-            // Mapear Funcionario <-> FuncionarioViewModel
-            CreateMap<Funcionario, FuncionarioViewModel>().ReverseMap()
-                .ConstructUsing(src => new Funcionario(src.Nome, src.TipoPessoa, src.CpfCnpj, src.Email, src.Telefone, src.Endereco, src.Cargo, src.DataContratacao));
+            // Map Employee <-> EmployeeViewModel
+            CreateMap<Employee, EmployeeViewModel>().ReverseMap()
+                .ConstructUsing(src => new Employee(src.Name, src.PersonType, src.CpfCnpj, src.Email, src.Phone, src.Address, src.Position, src.HireDate));
 
-            // Mapear Produto <-> ProdutoViewModel
-            CreateMap<Produto, ProdutoViewModel>()
-                .ForMember(dest => dest.NomeFornecedor, opt => opt.MapFrom(src => src.Fornecedor.Nome))
+            // Map Product <-> ProductViewModel
+            CreateMap<Product, ProductViewModel>()
+                .ForMember(dest => dest.SupplierName, opt => opt.MapFrom(src => src.Supplier.Name))
                 .ReverseMap()
-                .ConstructUsing(src => new Produto(src.Nome, src.Descricao, src.Preco, src.Estoque, src.FornecedorId));
+                .ConstructUsing(src => new Product(src.Name, src.Description, src.Price, src.SupplierId));
+
         }
     }
 }

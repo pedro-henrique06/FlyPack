@@ -1,12 +1,12 @@
 ﻿namespace FlyPack.Presentation.ViewModels
 {
-    public class ProdutoViewModel : BaseViewModel
+    public class ProductViewModel : BaseViewModel
     {
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public decimal Preco { get; set; }
-        public int Estoque { get; set; }
-        public Guid FornecedorId { get; set; }
-        public string NomeFornecedor { get; set; } // Para exibir o nome do fornecedor associado
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public int Stock { get; set; }
+        public Guid SupplierId { get; set; }
+        public string SupplierName { get; set; }
     }
 }
