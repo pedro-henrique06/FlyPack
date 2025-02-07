@@ -1,0 +1,40 @@
+name: CI/CD Pipeline for .NET API
+
+on:
+  push:
+    branches:
+      - master  # Ou a branch que você utiliza para produção
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build the project
+      run: dotnet build --configuration Release
+
+    - name: Run unit tests
+      run: dotnet test --configuration Release
+
+    - name: Publish the API
+      run: dotnet publish --configuration Release --output ./publish
+
+    - name: Deploy to Azure Web App (Exemplo)
+      run: |
+        echo "Deploying the API to Azure..."
+        # Exemplo de deploy usando o Azure Web App, configure conforme seu ambiente
+        az webapp up --name flaypack --resource-group FlyPack --plan ASP-FlyPack-a287
