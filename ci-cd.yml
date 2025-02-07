@@ -22,10 +22,10 @@ jobs:
         dotnet-version: '8.x'
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore FlyPack.sln
 
     - name: Build the project
-      run: dotnet build FlyPack.Presentation/FlyPack.Presentation.csproj --configuration Release
+      run: dotnet build FlyPack.sln --configuration Release
 
     - name: Run unit tests
       run: dotnet test --configuration Release
