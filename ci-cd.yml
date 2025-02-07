@@ -25,7 +25,7 @@ jobs:
       run: dotnet restore FlyPack.sln
 
     - name: Build the project
-      run: dotnet build FlyPack.sln --configuration Release
+      run: dotnet build ../../FlyPack.sln --configuration Release
 
     - name: Run unit tests
       run: dotnet test --configuration Release
