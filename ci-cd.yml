@@ -21,18 +21,27 @@ jobs:
       with:
         dotnet-version: '8.x'
 
+    # Restaurar dependências do projeto de apresentação
     - name: Restore dependencies
-      run: dotnet restore ../../FlyPack.sln
+      run: dotnet restore ../../FlyPack.Presentation/FlyPack.Presentation.csproj
 
+    # Construir o projeto de apresentação
     - name: Build the project
-      run: dotnet build ../../FlyPack.sln --configuration Release
+      run: dotnet build ../../FlyPack.Presentation/FlyPack.Presentation.csproj --configuration Release
 
+    # Rodar os testes
     - name: Run unit tests
-      run: dotnet test --configuration Release
+      run: dotnet test ../../FlyPack.Presentation/FlyPack.Presentation.csproj --configuration Release
 
+    # Publicar o projeto de apresentação
     - name: Publish the API
-      run: dotnet publish ../../FlyPack.sln -c Release -o out ./publish
+      run: dotnet publish ../../FlyPack.Presentation/FlyPack.Presentation.csproj --configuration Release --output ./publish
 
+    # Usar dotnet watch (opcional, normalmente usado para desenvolvimento)
+    - name: Watch changes on project (optional, usually for development)
+      run: dotnet watch --project ../../FlyPack.Presentation/FlyPack.Presentation.csproj
+
+    # Deploy no Azure
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
